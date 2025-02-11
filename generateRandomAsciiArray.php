@@ -1,33 +1,23 @@
 <?php
-
-function generateRandomAsciiArray():array {
-    $startChar = ord(',');
-    $endChar = ord('|');   
-  
-    $asciiChars = [];
-    for ($i = $startChar; $i <= $endChar; $i++) {
-        $asciiChars[] = chr($i);
-    }
-    
-    shuffle($asciiChars);
-    return $asciiChars;
+function generateRandomAsciiArray(): array {
+    $start = ord(',');
+    $end = ord('|');
+    $asciiArray = range($start, $end);
+    shuffle($asciiArray);
+    return $asciiArray;
 }
 
-
+// Generate array and remove a random element
 $asciiArray = generateRandomAsciiArray();
+$removedIndex = array_rand($asciiArray);
+$removedChar = $asciiArray[$removedIndex];
+unset($asciiArray[$removedIndex]);
 
-//remove random element
-$randomElementKey = array_rand($asciiArray);
-//Just store this to verify output
-$removedElement = $asciiArray[$randomElementKey];
-unset($asciiArray[$randomElementKey]);
+// Find missing character via sum comparison
+$sumExpected = array_sum(range(44, 124));
+$sumActual = array_sum(array_map('ord', $asciiArray));
+$missingChar = chr($sumExpected - $sumActual);
 
-//Making the array sequencial again
-$asciiArray = array_values($asciiArray);
-
-$missingChar = current(array_diff(range(',', '|'), $asciiArray));
-
-echo "The missing character is: " . $missingChar . "\n";
-echo "The removed character was: " . $removedElement . "\n";
-
+echo "The missing character is: $missingChar\n";
+echo "The removed character was: $removedChar\n";
 ?>
