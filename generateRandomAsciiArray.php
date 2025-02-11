@@ -4,7 +4,7 @@ function generateRandomAsciiArray(): array {
     $end = ord('|');
     $asciiArray = range($start, $end);
     shuffle($asciiArray);
-    return $asciiArray;
+    return $asciiArray;array_map('chr', $asciiArray)
 }
 
 // Generate array and remove a random element
