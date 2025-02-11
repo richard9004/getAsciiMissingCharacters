@@ -1,14 +1,14 @@
 <?php
-function generateRandomAsciiArray(): array {
-    $start = ord(',');
-    $end = ord('|');
+function generateRandomAsciiArray(string $startChar, string $endChar): array {
+    $start = ord($startChar);
+    $end = ord($endChar);
     $asciiArray = range($start, $end);
     shuffle($asciiArray);
-    return $asciiArray;array_map('chr', $asciiArray)
+    return array_map('chr', $asciiArray);
 }
 
-// Generate array and remove a random element
-$asciiArray = generateRandomAsciiArray();
+// Function to generate ascii array
+$asciiArray = generateRandomAsciiArray(',', '|');
 $removedIndex = array_rand($asciiArray);
 $removedChar = $asciiArray[$removedIndex];
 unset($asciiArray[$removedIndex]);
